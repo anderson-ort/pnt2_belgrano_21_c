@@ -1,0 +1,7 @@
+services:
+
+  db_lawyer:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: lkajslkdjlaksdjlkasudiuiouoi09182093810928
