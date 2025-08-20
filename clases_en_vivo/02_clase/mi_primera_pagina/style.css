@@ -1,0 +1,171 @@
+body {
+    font-family: 'Inter', sans-serif;
+    /* Fuente recomendada para una estética limpia */
+    background-color: #f0f2f5;
+    /* Fondo suave para resaltar las tarjetas */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* Asegura que ocupe toda la altura de la vista */
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    /* Incluye padding y borde en el tamaño total */
+}
+
+/* Contenedor principal de la aplicación */
+#app {
+    display: flex;
+    flex-wrap: wrap;
+    /* Permite que las tarjetas se envuelvan en pantallas pequeñas */
+    gap: 20px;
+    /* Espacio entre las tarjetas */
+    justify-content: center;
+    /* Centra las tarjetas horizontalmente */
+    max-width: 1200px;
+    /* Ancho máximo para el contenedor de tarjetas */
+    width: 100%;
+    /* Ocupa todo el ancho disponible */
+}
+
+/* Estilos para la tarjeta individual */
+.language-card {
+    background-color: #ffffff;
+    /* Fondo blanco para la tarjeta */
+    border-radius: 12px;
+    /* Esquinas redondeadas suaves */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    /* Sombra sutil para profundidad */
+    padding: 25px;
+    /* Espaciado interno */
+    width: 100%;
+    /* Ocupa todo el ancho disponible en móvil */
+    max-width: 320px;
+    /* Ancho máximo para la tarjeta en pantallas más grandes */
+    display: flex;
+    flex-direction: column;
+    /* Organiza el contenido en columna */
+    justify-content: space-between;
+    /* Distribuye el espacio entre los elementos */
+    transition: transform 0.2s ease-in-out;
+    /* Transición suave al pasar el mouse */
+    position: relative;
+    /* Para el efecto de "Nuevo" */
+    overflow: hidden;
+    /* Asegura que el contenido no desborde con el "Nuevo" */
+}
+
+/* Efecto al pasar el mouse sobre la tarjeta */
+.language-card:hover {
+    transform: translateY(-8px);
+    /* Eleva ligeramente la tarjeta */
+}
+
+/* Estilo para el nombre del lenguaje */
+.language-card p:first-child {
+    font-size: 1.8em;
+    /* Tamaño de fuente grande */
+    font-weight: 700;
+    /* Negrita */
+    color: #333;
+    /* Color de texto oscuro */
+    margin-bottom: 8px;
+    /* Espacio debajo del nombre */
+}
+
+/* Estilo para los horarios */
+.language-card i {
+    font-size: 0.95em;
+    /* Tamaño de fuente ligeramente más pequeño */
+    color: #555;
+    /* Color de texto más claro */
+    margin-bottom: 15px;
+    /* Espacio debajo de los horarios */
+    display: block;
+    /* Asegura que ocupe su propia línea */
+}
+
+/* Estilo para la línea divisoria */
+.language-card hr {
+    border: none;
+    border-top: 1px solid #eee;
+    /* Línea delgada y clara */
+    margin: 15px 0;
+    /* Espacio arriba y abajo de la línea */
+}
+
+/* Estilo para el comentario */
+.language-card p:nth-of-type(2) {
+    font-size: 1em;
+    /* Tamaño de fuente estándar */
+    color: #666;
+    /* Color de texto gris */
+    line-height: 1.6;
+    /* Altura de línea para mejor legibilidad */
+    margin-bottom: 20px;
+    /* Espacio debajo del comentario */
+    flex-grow: 1;
+    /* Permite que el comentario ocupe el espacio restante */
+}
+
+/* Estilo para el precio */
+.language-card strong {
+    font-size: 1.5em;
+    /* Tamaño de fuente grande para el precio */
+    font-weight: 800;
+    /* Más negrita */
+    color: #28a745;
+    /* Color verde vibrante para el precio */
+    align-self: flex-end;
+    /* Alinea el precio a la derecha */
+    margin-top: 10px;
+    /* Espacio arriba del precio */
+}
+
+/* Etiqueta "Nuevo" (ejemplo de elemento adicional) */
+.language-card.new::before {
+    content: 'NUEVO';
+    position: absolute;
+    top: 15px;
+    right: -30px;
+    background-color: #ffc107;
+    /* Amarillo */
+    color: #333;
+    font-size: 0.8em;
+    font-weight: bold;
+    padding: 5px 30px;
+    transform: rotate(45deg);
+    transform-origin: 0% 100%;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#importante-class{
+    background-color: red;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+    .language-card {
+        max-width: 90%;
+        /* Ajusta el ancho para tabletas */
+    }
+}
+
+@media (max-width: 480px) {
+    .language-card {
+        padding: 20px;
+        /* Reduce el padding en móviles */
+    }
+
+    .language-card p:first-child {
+        font-size: 1.5em;
+        /* Ajusta el tamaño del título en móviles */
+    }
+
+    .language-card strong {
+        font-size: 1.3em;
+        /* Ajusta el tamaño del precio en móviles */
+    }
+}
