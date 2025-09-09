@@ -157,7 +157,7 @@ UserCard.defaultProps = {
   onEdit: () => {}
 };
 
-// Con PropTypes --> esto se fue deprecando por el uso de TypeScript
+// Con PropTypes --> esto se fue deprecando por el uso de TypeScript a partir de ReactJs +19 
 import PropTypes from 'prop-types';
 
 UserCard.propTypes = {
@@ -404,7 +404,9 @@ function UserListPresenter({ users, loading }) {
 }
 ```
 
-### 5.3 Higher-Order Components (HOC)
+### 5.3 Higher-Order Components (HOC) 
+*Mucho mas complejo pero super interesante de uso cuando se requiere una misma logica para varios componentes*
+
 ```jsx
 function withLoading(WrappedComponent) {
   return function WithLoadingComponent({ isLoading, ...props }) {
@@ -418,25 +420,61 @@ const UserListWithLoading = withLoading(UserList);
 <UserListWithLoading isLoading={true} users={users} />
 ```
 
----
+```jsx
+// HOC para manejar autenticación
+function withAuth(WrappedComponent) {
+  return function AuthComponent({ user, ...props }) {
+    return user ? <WrappedComponent {...props} /> : <LoginScreen />;
+  };
+}
+
+const ProtectedDashboard = withAuth(Dashboard);
+const ProtectedProfile = withAuth(Profile);
+```
 
 ## 6. Performance y optimización
 
 ### 6.1 React.memo
+React.memo es como una memoria selectiva para tus componentes:
+
+- Recuerda las props que recibió
+- Compara con las nuevas props
+- Solo se renderiza si realmente cambiaron
+
 ```jsx
-const UserCard = React.memo(function UserCard({ user, onEdit }) {
-  return (
-    <div>
-      <h3>{user.name}</h3>
-      <button onClick={() => onEdit(user.id)}>Editar</button>
-    </div>
-  );
+// Sin React.memo - Se renderiza CADA VEZ
+function UserCard({ user, onEdit }) {
+  console.log('🔄 Renderizando siempre');
+  return <div>{user.name}</div>;
+}
+
+// Con React.memo - Solo cuando las props cambian
+const UserCardMemo = React.memo(function UserCard({ user, onEdit }) {
+  console.log('✅ Renderizando SOLO si cambian las props');
+  return <div>{user.name}</div>;
 });
 
-// Solo se rerenderiza si las props cambian
+// Uso:
+function UserList() {
+  const [users, setUsers] = useState([...]);
+  
+  return (
+    <div>
+      {/* Este se renderiza siempre */}
+      <UserCard user={users[0]} />
+      
+      {/* Este solo cuando user o onEdit cambien */}
+      <UserCardMemo user={users[0]} onEdit={handleEdit} />
+    </div>
+  );
+}
 ```
 
 ### 6.2 useCallback y useMemo
+
+- useCallback: Permite guardar en "memoria funciones"
+- useMemo
+
 ```jsx
 function UserList() {
   const [users, setUsers] = useState([]);
@@ -467,6 +505,7 @@ function UserList() {
   );
 }
 ```
+
 
 ### 6.3 Lazy loading con React.lazy
 ```jsx
