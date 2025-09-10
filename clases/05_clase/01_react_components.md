@@ -1,5 +1,7 @@
 # Componentes en React - Fundamentos, Buenas Prácticas y Técnicas Avanzadas
 
+*[Folder Structure for React](https://dev.to/itswillt/folder-structures-in-react-projects-3dp8)*
+
 ## Índice
 1. [¿Qué son los componentes?](#1-qué-son-los-componentes)
 2. [Tipos de componentes](#2-tipos-de-componentes)
