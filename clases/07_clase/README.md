@@ -189,3 +189,36 @@ export function LogoutButton() {
 3. Hace login con Supabase → guardamos el `user` en Zustand.
 4. Las rutas protegidas leen ese estado para dejarlo pasar o no.
 5. Si hace logout, borramos la sesión de Supabase y el store.
+
+
+---
+
+### Estructura aprox recomendada para la clase: 
+```shell
+src/
+├── app/
+│   ├── App.jsx            # Componente principal que envuelve toda la aplicación
+│   └── routes.jsx         # Configuración de enrutamiento de la aplicación
+│
+├── components/ # Elementos que se ocupan de manejar logica
+│   ├── ProtectedRoute.jsx # Componente que protege rutas requiriendo autenticación
+│   └── LogoutButton.jsx   # Componente para cerrar sesión del usuario
+│
+├── hooks/ # Manejo de logica de los hooks personalizados
+│   └── useAuthListener.js # Hook personalizado para monitorear el estado de autenticación
+│
+├── lib/ # Uso de configuradores
+│   └── supabase.js        # Configuración e inicialización del cliente de Supabase
+│
+├── pages/ # Se ocupa principalmente de los que es renderizado de componentes
+│   ├── Home.jsx           # Página principal accesible públicamente
+│   ├── Login.jsx          # Página de autenticación de usuarios
+│   └── Dashboard.jsx      # Página privada después del inicio de sesión
+│
+├── store/ # Manejo de las cookies y sessiones de manera global
+│   └── sessionStore.js    # Almacenamiento global para el estado de la sesión
+│
+└── index.css              # Estilos globales aplicados a toda la aplicación
+└── main.jsx               # Archivo de entrada que renderiza la aplicación en el DOM
+
+```
