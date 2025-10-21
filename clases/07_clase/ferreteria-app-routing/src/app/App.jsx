@@ -1,12 +1,17 @@
-import { useState } from 'react'
-import './App.css'
+import { BrowserRouter } from "react-router";
+import "./App.css";
+import AppRoutes from "./routes";
+import { useAuthListener } from "../hooks/useAuthListener";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+	// Supabase maneja internamente una sesión del usuario (guarda un token en localStorage y lo refresca automáticamente).
+	useAuthListener();
 
-  return (
-    <><p>Template Routing Code</p></>
-  )
-}
+	return (
+		<BrowserRouter>
+			<AppRoutes />
+		</BrowserRouter>
+	);
+};
 
-export default App
+export default App;
