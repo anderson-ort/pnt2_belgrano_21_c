@@ -7,7 +7,7 @@ El *routing* es el mecanismo que permite que tu aplicación muestre distintas pa
 Con **React Router**, lo básico se ve así:
 
 ```javascript
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 
@@ -34,7 +34,7 @@ Un *protected route* es un componente que verifica si el usuario está logueado 
 Si no está logueado, lo redirige a `/login`.
 
 ```javascript
-import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router";
 import { useSessionStore } from "../store/sessionStore";
 
 export function ProtectedRoute({ children }) {
