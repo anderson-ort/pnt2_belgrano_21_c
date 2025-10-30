@@ -1,0 +1,84 @@
+### 🔧 VARIABLES GLOBALES
+@host = https://grahwqakboypgvrykete.supabase.co
+@functionName = search-api
+@baseEndpoint = /functions/v1/{{functionName}}
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdyYWh3cWFrYm95cGd2cnlrZXRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEwODIyNTMsImV4cCI6MjA3NjY1ODI1M30.z2zzNOTrnirGqAUkFdkBzuvU-B1GAPyl6YSr6UjDSx8
+@baseURL = {{host}}{{baseEndpoint}}
+@headers = Authorization: Bearer {{token}}
+@json = Content-Type: application/json
+
+
+### 1️⃣ Health Check – Verificar que la función está activa
+GET {{baseURL}}/
+{{headers}}
+
+
+
+
+### 2️⃣ Búsqueda de productos – Query básica
+POST {{baseURL}}/search
+{{headers}}
+{{json}}
+
+{
+  "query": "martillo profesional"
+}
+
+
+
+### 3️⃣ Búsqueda con diferentes términos
+POST {{baseURL}}/search
+{{headers}}
+{{json}}
+
+{
+  "query": "taladro inalámbrico 18v"
+}
+
+> {%
+client.test("La búsqueda de taladros funciona", function() {
+  client.assert(response.status === 200, "Debe responder 200 OK");
+});
+%}
+
+
+### 4️⃣ Búsqueda de herramientas eléctricas
+POST {{baseURL}}/search
+{{headers}}
+{{json}}
+
+{
+  "query": "sierra circular"
+}
+
+
+### 5️⃣ Ejecutar generación de embeddings (procesamiento por lotes)
+POST {{baseURL}}/system/run_embedding
+{{headers}}
+{{json}}
+
+{}
+
+> {%
+client.test("El proceso de embeddings responde correctamente", function() {
+  client.assert(response.status === 200, "Debe responder 200 OK");
+  const data = response.body;
+  client.assert(data.message.includes("Embeddings generados"), "Debe incluir mensaje de procesamiento");
+});
+%}
+
+
+### 6️⃣ Probar query vacío (debería dar error)
+POST {{baseURL}}/search
+{{headers}}
+{{json}}
+
+{
+  "query": ""
+}
+
+> {%
+client.test("Debe devolver error si el query está vacío", function() {
+  client.assert(response.status !== 200, "Debe fallar con query vacío");
+});
+%}

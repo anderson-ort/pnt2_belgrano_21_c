@@ -1,0 +1,61 @@
+openapi: 3.1.0
+info:
+  title: Ferretería Search API
+  version: "1.0.0"
+  description: API para búsqueda semántica de productos utilizando embeddings y Supabase.
+
+servers:
+  - url: http://localhost:3001
+
+paths:
+  /:
+    get:
+      summary: Estado general de la API
+      responses:
+        200:
+          description: Información y estado de la API.
+
+  /system/run_embedding:
+    post:
+      summary: Genera embeddings para productos sin procesar
+      description: Ejecuta la función RPC y actualiza los productos con su embedding.
+      responses:
+        200:
+          description: Embeddings generados exitosamente o no hay pendientes.
+        500:
+          description: Error interno al generar embeddings.
+
+  /system/status_embeddings:
+    get:
+      summary: Verifica el estado de generación de embeddings
+      responses:
+        200:
+          description: Devuelve la cantidad de productos con y sin embeddings.
+
+  /search:
+    post:
+      summary: Realiza una búsqueda semántica de productos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                  example: "coso plateado que va en la pared del baño"
+      responses:
+        200:
+          description: Resultados de la búsqueda.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: object
+        400:
+          description: Error de parámetros o RPC.
