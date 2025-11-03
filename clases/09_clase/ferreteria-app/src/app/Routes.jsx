@@ -12,49 +12,21 @@ import Dashboard from "../pages/Dashboard.jsx";
 import Login from "../pages/Login.jsx";
 import Home from "../pages/Home.jsx";
 
-const routesConfig = [
-	{ path: "/", element: <Home />, protected: false },
-	{ path: "/login", element: <Login />, protected: false },
-	{ path: "/dashboard", element: <Dashboard />, protected: false },
-];
+function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+  );
+}
 
-const AppRoutes = () => {
-	return (
-		<Routes>
-			{routesConfig.map((route) => (
-				<Route
-					key={route.path}
-					path={route.path}
-					element={
-						route.protected ? (
-							<ProtectedRoute>{route.element}</ProtectedRoute>
-						) : (
-							route.element
-						)
-					}
-				/>
-			))}
-			<Route path="*" element={<Navigate to="/" replace />} />
-		</Routes>
-	);
-};
-
-export default AppRoutes;
-
-// otra forma basica
-// export function AppRoutes() {
-//   return (
-//     <Routes>
-//       <Route path="/" element={<Home />} />
-//       <Route path="/login" element={<Login />} />
-//       <Route
-//         path="/dashboard"
-//         element={
-//           <ProtectedRoute>
-//             <Dashboard />
-//           </ProtectedRoute>
-//         }
-//       />
-//     </Routes>
-//   );
-// }
+export default AppRoutes
