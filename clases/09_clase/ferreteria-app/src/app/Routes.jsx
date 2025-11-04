@@ -8,15 +8,17 @@
 import { Routes, Route, Navigate } from "react-router";
 
 import ProtectedRoute from "../components/ProtectedRoute.jsx";
-import Dashboard from "../pages/Dashboard.jsx";
 import Login from "../pages/Login.jsx";
 import Home from "../pages/Home.jsx";
+import Store from "../pages/Store.jsx";
+import Dashboard from "../pages/Dashboard.jsx";
 
 function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/store" element={<Store />} />
       <Route
         path="/dashboard"
         element={

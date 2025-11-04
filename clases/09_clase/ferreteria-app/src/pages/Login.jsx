@@ -9,7 +9,7 @@ const Login = () => {
     const [isSignUp, setIsSignUp] = useState(false);
     const [loading, setLoading] = useState(false);
     
-    const { login, signup, isOfflineMode } = useAuth();
+    const { login, signup, error } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,13 +39,6 @@ const Login = () => {
             <form className="login-form" onSubmit={handleSubmit}>
                 <h2 className="login-title">{isSignUp ? "Sign Up" : "Login"}</h2>
                 
-                {/* Indicador de modo offline */}
-                {isOfflineMode && (
-                    <div className="offline-badge">
-                        Modo Offline - Datos locales
-                    </div>
-                )}
-
                 <div className="input-group">
                     <label className="input-label">Email</label>
                     <input
@@ -82,6 +75,13 @@ const Login = () => {
                         : isSignUp ? "Sign Up" : "Log In"
                     }
                 </button>
+
+                {error && (
+                    <div className="error-message">
+                        {error}
+                    </div>
+                )}
+
 
                 <p onClick={toggleMode} style={{ cursor: 'pointer' }}>
                     {isSignUp

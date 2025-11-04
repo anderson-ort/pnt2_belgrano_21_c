@@ -1,12 +1,12 @@
-import { NavLink, useNavigate } from "react-router";
-import { useSessionStore } from "../store/sessionStore";
+import {  useNavigate } from "react-router";
 import { useEffect } from "react";
+import Navigator from "../components/Navigator";
+import { useSessionStore } from "../store/sessionStore";
 
 const Home = () => {
 	const { user } = useSessionStore();
 	const navigate = useNavigate();
 	useEffect(() => {
-		// Si ya hay sesión activa, redirige automáticamente al dashboard
 		if (user) {
 			navigate("/dashboard", { replace: true });
 		}
@@ -18,7 +18,7 @@ const Home = () => {
 				Ferreteria: <strong>andru-hardstore</strong>{" "}
 			</h1>
 			<p>Tu ferretería de confianza, con todo para tu proyecto.</p>
-			{!user && <NavLink to="/login">Login</NavLink>}
+			<Navigator/>
 		</div>
 	);
 };

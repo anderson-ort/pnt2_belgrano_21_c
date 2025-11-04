@@ -1,16 +1,19 @@
 import { useState } from 'react';
+import { useSessionStore } from '../store/sessionStore';
+import { useAuth } from '../hooks/useAuth';
+import { NavLink } from 'react-router';
 const Navigator = () => {
 
     const user = useSessionStore(state => state.user);
 
     const isAuthenticated = !!user;
 
-    const clearUser = useSessionStore(state => state.clearUser);
+    const { logout } = useAuth()
 
     if (!isAuthenticated) {
         return (
             <nav>
-                <button onClick={handleLogin}>Login/SignUp</button>
+                <NavLink to="/login">Login/SignUp</NavLink>
                 <span> | </span>
                 <a href="/store">Store</a>
             </nav>
@@ -19,7 +22,7 @@ const Navigator = () => {
 
     return (
         <nav>
-            <button onClick={handleLogout}>Logout</button>
+            <button onClick={logout}>Logout</button>
             <span> | </span>
             <a href="/store">Store</a>
             <span> | </span>

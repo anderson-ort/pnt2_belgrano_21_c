@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { supabase } from "../lib/supabase";
 import { useSessionStore } from "../store/sessionStore";
+import { supabase } from "../lib/infra/supabase/supabase";
 
 export function useAuthListener() {
 	const setUser = useSessionStore((state) => state.setUser);
